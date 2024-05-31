@@ -1,25 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import Navbar from "./components/Navbar/Navbar";
+import Routing from "./Routing";
+import AuthContextProvider from "./contexts/authContext";
+import Footer from "./components/Footer/Footer";
+import i18n from "i18next";
+import { initReactI18next } from "react-i18next";
+import translationEN from "./locales/en/translation.json";
+import translationRU from "./locales/ru/translation.json";
 
-function App() {
+i18n.use(initReactI18next).init({
+  resources: {
+    en: {
+      translation: translationEN,
+    },
+    ru: {
+      translation: translationRU,
+    },
+  },
+  lng: "en",
+  fallbackLng: "en",
+  interpolation: {
+    escapeValue: false,
+  },
+});
+
+export { i18n };
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <AuthContextProvider>
+        <Navbar />
+        <Routing />
+        <Footer />
+      </AuthContextProvider>
+    </>
   );
-}
+};
 
 export default App;

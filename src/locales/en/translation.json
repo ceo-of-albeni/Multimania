@@ -1,0 +1,99 @@
+{
+  "home": {
+    "title": "Alatoo Academic Journal",
+    "description": "We eagerly await your fascinating research!",
+    "article_title": "\"Alatoo Academic Studies\" - the way to scientific leadership in the Kyrgyz Republic",
+    "article": "It is noteworthy that in 2020, the impact factor of the scientific journal was 0.171, and by 2021, it increased to 0.210. By the end of 2022, it further rose to 0.421, and the journal continues to maintain its high rating.",
+    "read": "Read Now"
+  },
+  "button": {
+    "submit": "Join us"
+  },
+  "navbar": {
+    "rules": "Rules",
+    "archive": "Archive",
+    "admin": "Admin",
+    "profile": "Profile",
+    "signin": "LOGIN",
+    "signout": "LOGOUT"
+  },
+  "login": {
+    "login": "LOGIN",
+    "email": "Email",
+    "ph_email": "Enter your email",
+    "password": "Password",
+    "ph_password": "Enter your password",
+    "signin": "LOGIN",
+    "signup": "Create a new account",
+    "forgot_pw": "Forgot password?"
+  },
+  "register": {
+    "registration": "REGISTRATION",
+    "first_name": "First name",
+    "ph_first_name": "Enter your name",
+    "last_name": "Last name",
+    "ph_last_name": "Enter your surname",
+    "email": "Email",
+    "ph_email": "Enter your email",
+    "password": "Password",
+    "ph_password": "Enter your password",
+    "confirm_pw": "Confirm Password",
+    "ph_confirm_pw": "Enter your password",
+    "signup": "Sign up"
+  },
+  "confirm_reg": {
+    "button": "CONFIRM",
+    "email": "Email",
+    "ph_email": "Enter your email",
+    "code": "Code",
+    "ph_code": "Enter your code",
+    "signin": "Sign in",
+    "resend": "Resend code"
+  },
+  "forgot_password": {
+    "reset_pw": "Password Reset",
+    "text": "Forgotten your password? Enter your e-mail address below, and we'll send you an e-mail allowing you to reset it.",
+    "email": "Email",
+    "ph_email": "Enter your email",
+    "reset_btn": "Reset my password"
+  },
+  "change_pw": {
+    "change": "Change Password",
+    "new": "New Password",
+    "confirm_new": "Confrim New Password",
+    "ph": "Click to start typing",
+    "message": "Your password is now changed."
+  },
+  "success": {
+    "fully": "Successfully!"
+  },
+
+  "footer": {
+    "contacts": "Contacts",
+    "address": "Ala-Too International University, Ankara Street 1/8, Tunguch, 720048, Bishkek, Kyrgyz Republic",
+    "tel": "Tel: +996 (312) 631425",
+    "fax": "Fax: +996 (312) 630409",
+    "email": "E-mail: info@alatoo.edu.kg",
+    "office": "Registration Office:",
+    "office_room": "Ala-Too International University (A-Block), 107 room",
+    "address2": "Address: Ankara Street 1/8, Tunguch, 720048, Bishkek, Kyrgyz Republic",
+    "tel2": "Tel: +996 (312) 630407"
+  },
+  "table": {
+    "title": "Title",
+    "date": "Date",
+    "author": "Author",
+    "pages": "Pages",
+    "category": "Category",
+    "status": "Status",
+    "check": "Check"
+  },
+  "userprofilepage": {
+    "next": "Next",
+    "clear": "Clear all",
+    "firstname": "First Name: ",
+    "lastname": "Last Name: ",
+    "position": "Position: ",
+    "email": "Email: "
+  }
+}

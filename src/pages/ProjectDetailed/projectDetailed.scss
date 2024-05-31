@@ -1,0 +1,75 @@
+// projectDetails.scss
+.project-details {
+  padding: 20px;
+  border-radius: 8px;
+  background: linear-gradient(to bottom right, #fff, #f0f0f0);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+  .back-button {
+    margin-bottom: 20px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    color: #555;
+    transition: transform 0.3s ease-in-out;
+
+    svg {
+      margin-right: 8px;
+    }
+
+    &:hover {
+      transform: translateX(-4px);
+    }
+  }
+
+  .project-info {
+    text-align: center;
+
+    h2 {
+      color: #333;
+      font-size: 28px;
+      margin-bottom: 16px;
+    }
+
+    .project-image {
+      width: 100%;
+      max-width: 600px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    p {
+      color: #666;
+      font-size: 18px;
+      line-height: 1.6;
+    }
+  }
+}
+
+// projectDetails.scss
+.progress-bar {
+  margin-bottom: 20px;
+
+  .MuiLinearProgress-root {
+    height: 8px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+
+    &.MuiLinearProgress-colorPrimary {
+      background-color: #f0f0f0;
+    }
+
+    .MuiLinearProgress-bar {
+      background-color: #2196f3; // Change color as needed
+    }
+  }
+}
+
+// projectDetails.scss
+.avatar {
+  width: 32px;
+  height: 32px;
+  margin-right: 12px;
+  border-radius: 50%;
+}
