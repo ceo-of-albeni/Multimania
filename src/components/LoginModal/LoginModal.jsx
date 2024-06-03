@@ -8,6 +8,9 @@ import { ArrowBack } from "@mui/icons-material";
 const LoginModal = ({ closeModal }) => {
   const [activeModal, setActiveModal] = useState("login");
   const { t, i18n } = useTranslation();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const { handleLogin, setError } = useContext(authContext);
 
   const navigate = useNavigate();
 
@@ -19,11 +22,8 @@ const LoginModal = ({ closeModal }) => {
     };
   }, []);
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const { handleLogin, setError } = useContext(authContext);
-
-  function loginUser() {
+  function loginUser(e) {
+    e.preventDefault();
     if (!email.trim() || !password.trim()) {
       alert("Some inputs are empty!");
       return;
@@ -41,9 +41,9 @@ const LoginModal = ({ closeModal }) => {
     setPassword("");
   }
 
-  useEffect(() => {
-    setError(false);
-  }, []);
+  // useEffect(() => {
+  //   setError(false);
+  // }, []);
 
   const handleLoginClick = (e) => {
     e.stopPropagation();
@@ -59,10 +59,10 @@ const LoginModal = ({ closeModal }) => {
     closeModal();
   };
 
-  // const openForg = () => {
-  //   navigate("/forgot_password");
-  //   closeModal();
-  // };
+  const openForg = () => {
+    navigate("/forgot_password");
+    closeModal();
+  };
 
   return (
     <>

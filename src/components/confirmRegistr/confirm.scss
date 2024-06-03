@@ -1,13 +1,7 @@
-.login {
-  position: fixed;
+.confirm {
   display: block;
-  z-index: 1050;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(5px);
 
   button {
     width: 134px;
@@ -67,41 +61,45 @@
   }
 }
 
-.login__inner {
+.confirm__inner {
   margin: 80px auto;
   width: 470px;
-  height: 458px;
+  height: 450px;
+  border: 1px solid black;
   border-radius: 20px;
-  background-color: rgba(255, 255, 255, 0.833);
+  background-color: white;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 2px 2px rgba(0, 0, 0, 0.12),
+    0 4px 4px rgba(0, 0, 0, 0.12), 0 8px 8px rgba(0, 0, 0, 0.12),
+    0 16px 16px rgba(0, 0, 0, 0.12);
   text-align: center;
   align-items: center;
+
+  img:hover {
+    background-color: rgb(244, 222, 161);
+    box-shadow: 0px 0px 10px 0px rgb(247, 202, 76);
+    border-radius: 50%;
+  }
+
+  div:nth-child(1) {
+    font-size: 25px;
+    font-weight: 700;
+    line-height: 30px;
+    margin-bottom: 22px;
+  }
 }
 
-.arrow_log {
+.arrow_back {
   margin: 38px 50px 22px;
   margin-left: -275px;
   border-radius: 50%;
   transition: 0.2s;
 }
 
-.login__inner img:hover {
-  background-color: rgb(244, 222, 161);
-  box-shadow: 0px 0px 10px 0px rgb(247, 202, 76);
-  border-radius: 50%;
-}
-
-.login__inner div:nth-child(1) {
-  font-size: 25px;
-  font-weight: 700;
-  line-height: 30px;
-  margin-bottom: 22px;
-}
-
-.login__signup {
+.confirm__signup {
   margin: 22px 0px;
 }
 
-.login__signup a {
+.confirm__signup a {
   font-size: 16px;
   font-weight: 510;
   line-height: 19px;
@@ -111,12 +109,12 @@
   transition: 0.2s;
 }
 
-.login__signup a:hover {
+.confirm__signup a:hover {
   color: black;
   text-decoration: underline;
 }
 
-.login__fpassword a {
+.confirm__fpassword a {
   text-decoration: none;
   color: #666666;
 
@@ -127,7 +125,18 @@
   transition: 0.2s;
 }
 
-.login__fpassword a:hover {
+.confirm__fpassword a:hover {
   color: black;
   text-decoration: underline;
+}
+
+.resend_submit p {
+  margin-top: 10px;
+  cursor: pointer;
+  color: #7a7f82;
+  text-decoration: underline;
+}
+
+.resend_submit p:hover {
+  color: #b3b2b2;
 }

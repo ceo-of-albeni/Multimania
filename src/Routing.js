@@ -5,6 +5,7 @@ import Registration from "./pages/Registration/Registration";
 import IdeasPage from "./pages/IdeasPage/IdeasPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import ProjectDetailed from "./pages/ProjectDetailed/ProjectDetailed";
+import { ConfirmReg } from "./components/confirmRegistr/confirmRegistr";
 
 const Routing = () => {
   const PUBLIC_ROUTES = [
@@ -24,14 +25,19 @@ const Routing = () => {
       id: 2,
     },
     {
-      link: "/profile",
+      link: "/profile/:id",
       element: <ProfilePage />,
       id: 3,
     },
     {
-      link: "/project",
+      link: "/project/:id",
       element: <ProjectDetailed />,
       id: 4,
+    },
+    {
+      link: "/confirm",
+      element: <ConfirmReg />,
+      id: 5,
     },
   ];
   return (

@@ -3,13 +3,12 @@
   flex-direction: column;
   margin: 40px;
   align-items: center;
-  // margin: 50px 0px 50px 0px;
 }
 
 .list_courses-div {
-  justify-content: space-around;
   display: flex;
   flex-wrap: wrap;
+  align-items: flex-start;
 }
 
 .list_sort-div {

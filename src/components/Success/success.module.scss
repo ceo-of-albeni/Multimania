@@ -1,0 +1,41 @@
+.success {
+  position: fixed;
+  display: block;
+  z-index: 1050;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  backdrop-filter: blur(5px);
+
+  button {
+    width: 81px;
+    height: 38px;
+  }
+}
+
+.success__inner {
+  margin: 200px auto;
+  width: 423px;
+  height: 225px;
+  border-radius: 20px;
+  background-color: white;
+  text-align: center;
+  align-items: center;
+}
+
+.success__inner div:nth-child(1) {
+  font-family: Muller;
+  padding: 75px 121px 22px;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 30px;
+  text-align: left;
+}
+
+/* button {
+    width: 81px;
+    height: 38px;
+} */

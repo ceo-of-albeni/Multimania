@@ -5,109 +5,98 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
-import Startup from "../../img/1190422.png";
-import Article from "../../img/article.jpeg";
+import Startup from "../../img/startup.png";
+import Article from "../../img/article.png";
 import Patent from "../../img/patent.png";
 import Inbl from "../../img/inbl.png";
+import { useTranslation } from "react-i18next";
 
 const HomePage = () => {
+  const { t, i18n } = useTranslation();
   return (
-    <div>
+    <div className="home_anim">
+      <div>
+        <div className="wave"></div>
+        <div className="wave"></div>
+        <div className="wave"></div>
+      </div>
       <div className="home_greetig-div">
-        <h1>Welcome to MULTIMANIA!</h1>
-        <p>
+        <h1>{t("home_anim.title")}</h1>
+        {/* <p>
           The ultimate hub for innovators and dreamers. Here, you can share your
           startup ideas, connect with like-minded visionaries, and build the
           perfect team to bring your vision to life. Join our vibrant community
           and turn your ideas into reality. Your journey to success starts here!
-        </p>
+        </p> */}
       </div>
       <div className="home_main-div">
-        <Card className="home_card" sx={{ maxWidth: 345 }}>
+        <div className="home_card">
           <CardActionArea style={{ display: "flex", flexDirection: "column" }}>
             <Typography gutterBottom variant="h5" component="div">
-              StartUp
+              {t("home_anim.startup_title")}
             </Typography>
-            <CardMedia
+            {/* <CardMedia
               component="img"
-              height="140"
+              // height="140"
               image={Startup}
               alt="green iguana"
-            />
+            /> */}
+            <img src={Startup} height="150" alt="" />
             <CardContent>
               <Typography variant="body2" color="text.secondary">
-                A startup is a new business that tries to bring a unique product
-                or service to the market. These businesses aim to grow quickly
-                and often use new ideas and technology. Startups usually begin
-                with some risk and often need money from investors to get going.
+                {t("home_anim.startup_text")}
               </Typography>
             </CardContent>
           </CardActionArea>
-        </Card>
-        <Card className="home_card" sx={{ maxWidth: 345 }}>
+        </div>
+        <div className="home_card">
           <CardActionArea style={{ display: "flex", flexDirection: "column" }}>
             <Typography gutterBottom variant="h5" component="div">
-              Patent
+              {t("home_anim.patent_title")}
             </Typography>
-            <CardMedia
-              component="img"
-              height="140"
-              image={Patent}
-              alt="green iguana"
-            />
+            <img src={Patent} height="150" alt="" />
+
             <CardContent>
               <Typography variant="body2" color="text.secondary">
-                A patent is a special right given by the government to an
-                inventor. It means the inventor is the only one allowed to make,
-                use, or sell their invention for a certain number of years. This
-                helps protect their idea from being copied by others.
+                {t("home_anim.patent_text")}
               </Typography>
             </CardContent>
           </CardActionArea>
-        </Card>
-        <Card className="home_card" sx={{ maxWidth: 345 }}>
+        </div>
+        <div className="home_card">
           <CardActionArea style={{ display: "flex", flexDirection: "column" }}>
             <Typography gutterBottom variant="h5" component="div">
-              Incorporation
+              {t("home_anim.incorporation_title")}
             </Typography>
-            <CardMedia
-              component="img"
-              height="140"
-              image={Inbl}
-              alt="green iguana"
-            />
+            <img src={Inbl} height="150" alt="" />
             <CardContent>
               <Typography variant="body2" color="text.secondary">
-                A patent is a special right given by the government to an
-                inventor. It means the inventor is the only one allowed to make,
-                use, or sell their invention for a certain number of years. This
-                helps protect their idea from being copied by others.
+                {t("home_anim.incorporation_text")}
               </Typography>
             </CardContent>
           </CardActionArea>
-        </Card>
-        <Card className="home_card" sx={{ maxWidth: 345 }}>
+        </div>
+        <div className="home_card">
           <CardActionArea style={{ display: "flex", flexDirection: "column" }}>
             <Typography gutterBottom variant="h5" component="div">
-              Article
+              {t("home_anim.article_title")}
             </Typography>
-            <CardMedia
-              component="img"
-              height="140"
-              image={Article}
-              alt="green iguana"
-            />
+            <img src={Article} height="150" alt="" />
+
             <CardContent>
               <Typography variant="body2" color="text.secondary">
-                An article is a piece of writing that is published in a
-                newspaper, magazine, or online. It usually provides information
-                about a specific topic, event, or issue. Articles are written to
-                inform, entertain, or persuade readers.
+                {t("home_anim.article_text")}
               </Typography>
             </CardContent>
           </CardActionArea>
-        </Card>
+        </div>
       </div>
+      {/* <p id="about_p">
+        The ultimate hub for innovators and dreamers. Here, you can share your
+        startup ideas, connect with like-minded visionaries, and build the
+        perfect team to bring your vision to life. Join our vibrant community
+        and turn your ideas into reality. Your journey to success starts here!
+      </p> */}
     </div>
   );
 };

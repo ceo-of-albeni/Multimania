@@ -24,7 +24,7 @@ function reducer(state = INIT_STATE, action) {
   }
 }
 
-const ArticleContextsProvider = ({ children }) => {
+const IdeaContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, INIT_STATE);
 
   const API = "http://localhost:3001/api";
@@ -41,7 +41,7 @@ const ArticleContextsProvider = ({ children }) => {
           Authorization,
         },
       };
-      const res = await axios(`${API}/article/allMy`, config);
+      const res = await axios(`${API}/ideas/all/my`, config);
       dispatch({
         type: "GET_MY_IDEAS",
         payload: res.data,
@@ -51,16 +51,40 @@ const ArticleContextsProvider = ({ children }) => {
     }
   }
 
-  async function getOneIdea(id) {
+  async function getAllIdeas() {
+    try {
+      // const tokens = JSON.parse(localStorage.getItem("tokens"));
+      const res = await axios(`${API}/ideas`);
+      dispatch({
+        type: "GET_IDEAS",
+        payload: res.data,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async function applyToTeam(id) {
     try {
       const tokens = JSON.parse(localStorage.getItem("tokens"));
+      console.log(tokens);
       const Authorization = `Bearer ${tokens.access_token}`;
       const config = {
         headers: {
           Authorization,
         },
       };
-      const res = await axios(`${API}/article/${id}/`, config);
+      const res = await axios.patch(`${API}/ideas/apply/to/team/${id}`, config);
+      console.log(res.data);
+      alert("Applied successful");
+    } catch (err) {
+      console.error("Error applying:", err);
+    }
+  }
+
+  async function getOneIdea(id) {
+    try {
+      const res = await axios(`${API}/ideas/${id}/`);
       dispatch({
         type: "GET_ONE_IDEA",
         payload: res.data,
@@ -79,10 +103,12 @@ const ArticleContextsProvider = ({ children }) => {
 
         getAllMyIdeas,
         getOneIdea,
+        getAllIdeas,
+        applyToTeam,
       }}>
       {children}
     </ideasContext.Provider>
   );
 };
 
-export default ArticleContextsProvider;
+export default IdeaContextProvider;

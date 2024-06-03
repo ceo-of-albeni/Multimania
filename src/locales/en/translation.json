@@ -1,16 +1,17 @@
 {
-  "home": {
-    "title": "Alatoo Academic Journal",
-    "description": "We eagerly await your fascinating research!",
-    "article_title": "\"Alatoo Academic Studies\" - the way to scientific leadership in the Kyrgyz Republic",
-    "article": "It is noteworthy that in 2020, the impact factor of the scientific journal was 0.171, and by 2021, it increased to 0.210. By the end of 2022, it further rose to 0.421, and the journal continues to maintain its high rating.",
-    "read": "Read Now"
-  },
-  "button": {
-    "submit": "Join us"
+  "home_anim": {
+    "title": "Welcome to MULTIMANIA!",
+    "startup_title": "StartUp",
+    "patent_title": "Patent",
+    "incorporation_title": "Incorporation",
+    "article_title": "Article",
+    "startup_text": "A startup is a newly established company with a small team of founders and limited resources focused on developing and bringing a unique product, service, or business model to market. ",
+    "patent_text": "A patent is a special right given by the government to an inventor. It means the inventor is the only one allowed to make, use, or sell their invention for a certain number of years. This helps protect their idea from being copied by others.",
+    "incorporation_text": "Incorporation is the legal process used to form a corporate entity or company. A corporation is the resulting legal entity that separates the firm's assets and income from its owners and investors.",
+    "article_text": "An article is a piece of writing that is published in a newspaper, magazine, or online. It usually provides information about a specific topic, event, or issue. Articles are written to inform, entertain, or persuade readers."
   },
   "navbar": {
-    "rules": "Rules",
+    "ideas": "Ideas",
     "archive": "Archive",
     "admin": "Admin",
     "profile": "Profile",
@@ -50,24 +51,12 @@
     "signin": "Sign in",
     "resend": "Resend code"
   },
-  "forgot_password": {
-    "reset_pw": "Password Reset",
-    "text": "Forgotten your password? Enter your e-mail address below, and we'll send you an e-mail allowing you to reset it.",
-    "email": "Email",
-    "ph_email": "Enter your email",
-    "reset_btn": "Reset my password"
+  "ideas": {
+    "title": "IDEAS"
   },
-  "change_pw": {
-    "change": "Change Password",
-    "new": "New Password",
-    "confirm_new": "Confrim New Password",
-    "ph": "Click to start typing",
-    "message": "Your password is now changed."
+  "card": {
+    "button": "VIEW PROJECT"
   },
-  "success": {
-    "fully": "Successfully!"
-  },
-
   "footer": {
     "contacts": "Contacts",
     "address": "Ala-Too International University, Ankara Street 1/8, Tunguch, 720048, Bishkek, Kyrgyz Republic",
@@ -77,23 +66,35 @@
     "office": "Registration Office:",
     "office_room": "Ala-Too International University (A-Block), 107 room",
     "address2": "Address: Ankara Street 1/8, Tunguch, 720048, Bishkek, Kyrgyz Republic",
-    "tel2": "Tel: +996 (312) 630407"
+    "tel2": "Tel: +996 (312) 630407",
+    "alatoo": "© 2024 Ala-Too International University"
   },
-  "table": {
-    "title": "Title",
-    "date": "Date",
-    "author": "Author",
-    "pages": "Pages",
-    "category": "Category",
-    "status": "Status",
-    "check": "Check"
+  "details": {
+    "developers": "Team",
+    "requirements": "Need",
+    "back_arrow": "Back"
   },
   "userprofilepage": {
-    "next": "Next",
-    "clear": "Clear all",
-    "firstname": "First Name: ",
-    "lastname": "Last Name: ",
-    "position": "Position: ",
-    "email": "Email: "
+    "upload_btn": "Upload an idea",
+    "edit_btn": "Edit"
+  },
+  "ideamodal": {
+    "title": "Create a new idea",
+    "idea_title": "Title",
+    "ph": "Click to start typing",
+    "description": "Description",
+    "need": "Needed developers (separated by comma, without spaces)",
+    "photo": "Image",
+    "upload": "Upload"
+  },
+  "edit_profile": {
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "usefulLink": "Links",
+    "picture": "Profile Picture",
+    "edit": "Edit",
+    "title": "Edit",
+    "ph": "Click to start typing",
+    "aboutMe": "About yourself"
   }
 }

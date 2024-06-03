@@ -1,9 +1,29 @@
 // projectDetails.scss
 .project-details {
-  padding: 20px;
+  padding: 30px 47px;
   border-radius: 8px;
-  background: linear-gradient(to bottom right, #fff, #f0f0f0);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+  button {
+    width: 165px;
+    height: 38px;
+    padding: 10px, 39px, 10px;
+    border-radius: 5px;
+    border: none;
+    background: black;
+    font-size: 16px;
+    font-weight: 310;
+    line-height: 19px;
+    color: white;
+    transition: 0.2s;
+  }
+
+  button:hover {
+    background-color: white;
+    color: #4caf50;
+    border: 1px solid black;
+    box-shadow: 0px 0px 17px 0px;
+  }
 
   .back-button {
     margin-bottom: 20px;
@@ -22,34 +42,41 @@
     }
   }
 
-  .project-info {
-    text-align: center;
+  .detailed_title {
+    font-size: 40px;
+    color: #333;
+    margin: 30px 0px;
+    font-weight: bold;
+  }
 
-    h2 {
-      color: #333;
-      font-size: 28px;
-      margin-bottom: 16px;
-    }
+  .project-info {
+    display: flex;
+
+    flex-wrap: wrap;
 
     .project-image {
       width: 100%;
-      max-width: 600px;
+      max-width: 450px;
       border-radius: 8px;
       margin-bottom: 20px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      object-fit: cover;
     }
 
     p {
       color: #666;
       font-size: 18px;
       line-height: 1.6;
+      width: 60%;
+      margin-left: 50px;
     }
   }
 }
 
 // projectDetails.scss
 .progress-bar {
-  margin-bottom: 20px;
+  margin: 20px auto;
+  width: 40%;
 
   .MuiLinearProgress-root {
     height: 8px;
@@ -57,19 +84,41 @@
     margin-bottom: 8px;
 
     &.MuiLinearProgress-colorPrimary {
-      background-color: #f0f0f0;
+      background-color: #d2d1d1;
     }
 
     .MuiLinearProgress-bar {
-      background-color: #2196f3; // Change color as needed
+      background-color: #00fe00;
     }
   }
 }
 
-// projectDetails.scss
 .avatar {
   width: 32px;
   height: 32px;
   margin-right: 12px;
   border-radius: 50%;
+}
+.developer {
+  display: flex;
+  margin-bottom: 8px;
+}
+
+.developers-block,
+.requirements-block {
+  height: 300px;
+  margin: auto;
+  h3 {
+    margin: 20px;
+    font-size: 20px;
+  }
+}
+
+.developer-info,
+.requirements-block {
+  font-size: 20px;
+
+  li {
+    margin-bottom: 10px;
+  }
 }

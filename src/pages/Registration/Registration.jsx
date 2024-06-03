@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import classes from "./registration.scss";
+import "./registration.scss";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { authContext } from "../../contexts/authContext";
 import { useNavigate } from "react-router-dom";
@@ -48,9 +48,9 @@ const Registration = () => {
     }
   };
 
-  useEffect(() => {
-    setError(false);
-  }, []);
+  // useEffect(() => {
+  //   setError(false);
+  // }, []);
 
   const openConfirm = () => {
     createUser();
@@ -72,8 +72,15 @@ const Registration = () => {
 
   return (
     <div className="register">
+      <div>
+        <div className="wave"></div>
+        <div className="wave"></div>
+        <div className="wave"></div>
+      </div>
       <div className="register__inner">
-        <ArrowBackIcon className="arrow_reg" onClick={() => navigate("/")} />
+        <a href="javascript:history.go(-1)">
+          <ArrowBackIcon className="arrow_reg" />
+        </a>
         <form action="">
           <div>{t("register.registration")}</div>
           <label>{t("register.first_name")}</label>

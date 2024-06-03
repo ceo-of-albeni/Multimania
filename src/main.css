@@ -1,8 +1,15 @@
 * {
   margin: 0px;
-  font-family: "Open Sans", "Arial", sans-serif;
+  font-family: "Josefin Sans", sans-serif;
 }
 
 body {
   background-color: #f7f5f0;
+}
+
+.josefin-sans-myFont {
+  font-family: "Josefin Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
 }

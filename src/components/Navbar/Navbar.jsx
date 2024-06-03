@@ -2,23 +2,32 @@ import React, { useState, useContext, useEffect } from "react";
 import "./navbar.scss";
 import { useNavigate } from "react-router-dom";
 import { authContext } from "../../contexts/authContext";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useTranslation } from "react-i18next";
 import Logo from "../../img/logo_multimania-02.png";
 import LoginModal from "../LoginModal/LoginModal";
+import MenuIcon from "@mui/icons-material/Menu";
+import CloseIcon from "@mui/icons-material/Close";
 
 const Navbar = ({ closeModal }) => {
   const [activeModal, setActiveModal] = useState(null);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const { handleLogin, handleLogout, currentUser, setError } =
-    useContext(authContext);
+  const [isBurgerOpen, setIsBurgerOpen] = useState(false);
+  const { handleLogout, getOneUser, oneUser } = useContext(authContext);
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
+
+  useEffect(() => {
+    const savedLanguage = localStorage.getItem("language") || "en";
+    i18n.changeLanguage(savedLanguage);
+  }, [i18n]);
+
+  useEffect(() => {
+    getOneUser();
+  }, []);
 
   const handleChangeLanguage = (event) => {
     const selectedLanguage = event.target.value;
     i18n.changeLanguage(selectedLanguage);
+    localStorage.setItem("language", selectedLanguage);
   };
 
   const openLoginModal = () => {
@@ -31,30 +40,8 @@ const Navbar = ({ closeModal }) => {
     setActiveModal(null);
   };
 
-  const loginUser = async () => {
-    if (!email.trim() || !password.trim()) {
-      alert("Some inputs are empty!");
-      return;
-    }
-
-    let newObj = {
-      email: email,
-      password: password,
-    };
-
-    try {
-      console.log("Sending login request:", newObj);
-      await handleLogin(newObj);
-      alert("Login successful!");
-      closeModal();
-      navigate("/");
-    } catch (error) {
-      console.log("Login error:", error);
-      alert("Invalid email or password");
-    }
-
-    setEmail("");
-    setPassword("");
+  const toggleBurgerMenu = () => {
+    setIsBurgerOpen(!isBurgerOpen);
   };
 
   return (
@@ -67,28 +54,32 @@ const Navbar = ({ closeModal }) => {
             alt="logo"
             onClick={() => navigate("/")}
           />
-          <div className="header_inner">
+          <div className="burger_icon" onClick={toggleBurgerMenu}>
+            {isBurgerOpen ? <CloseIcon /> : <MenuIcon />}
+          </div>
+          <div className={`header_inner ${isBurgerOpen ? "active" : ""}`}>
             <div className="header_links">
-              <a href="/ideas" className="header_links__item">
-                Ideas
-              </a>
-              <a href="/profile" className="header_links__item">
-                Profile
-              </a>
-
-              {/* {localStorage.getItem("email") === null ? (
-              <span></span>
-            ) : (
               <a
-                key={oneUser.id}
-                onClick={() => navigate(`/profile/${oneUser.id}`)}
+                onClick={() => navigate("/ideas")}
                 className="header_links__item">
-                {t("navbar.profile")}
+                {t("navbar.ideas")}
               </a>
-            )} */}
+              {localStorage.getItem("email") === null ? (
+                <span></span>
+              ) : (
+                <a
+                  key={oneUser.id}
+                  onClick={() => navigate(`/profile/${oneUser.id}`)}
+                  className="header_links__item">
+                  {t("navbar.profile")}
+                </a>
+              )}
             </div>
             <div>
-              <select className="change_lang" onChange={handleChangeLanguage}>
+              <select
+                className="change_lang"
+                onChange={handleChangeLanguage}
+                value={i18n.language}>
                 <option value="en">En</option>
                 <option value="ru">Ru</option>
               </select>

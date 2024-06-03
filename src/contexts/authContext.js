@@ -1,4 +1,4 @@
-import React, { useState, useReducer, useEffect } from "react";
+import React, { useState, useReducer } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -20,7 +20,7 @@ function reducer(state = INIT_STATE, action) {
   }
 }
 
-const API = "http://localhost:3001/tutorial/";
+const API = "http://localhost:3001/api/";
 
 const AuthContextProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
@@ -30,17 +30,9 @@ const AuthContextProvider = ({ children }) => {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const email = localStorage.getItem("email");
-    const username = localStorage.getItem("username");
-    if (email && username) {
-      setCurrentUser({ email, username });
-    }
-  }, []);
-
   async function handleRegister(newObj) {
     try {
-      const res = await axios.post(`${API}createUser`, newObj);
+      const res = await axios.post(`${API}auth/register`, newObj);
       console.log("User created:", res.data);
     } catch (err) {
       setError(true);
@@ -48,20 +40,18 @@ const AuthContextProvider = ({ children }) => {
     }
   }
 
-  async function handleLogin(formData) {
+  async function handleLogin(newObj, email, closeModal) {
     try {
-      const res = await axios.post(`${API}login`, formData);
-      const { idToken, email, username } = res.data;
-
-      setCurrentUser({ email, username });
-      localStorage.setItem("idToken", idToken);
+      const res = await axios.post(`${API}auth/login`, newObj);
+      localStorage.setItem("tokens", JSON.stringify(res.data));
       localStorage.setItem("email", email);
-      localStorage.setItem("username", username);
-      setError(false);
+      closeModal();
+      navigate("/");
+      // window.location.reload();
     } catch (err) {
-      setError(true);
-      console.error("Error logging in user:", err);
-      alert("Invalid email or password!");
+      alert("Incorrect email or password!");
+      console.log(err);
+      setError(err);
     }
   }
 
@@ -77,25 +67,120 @@ const AuthContextProvider = ({ children }) => {
     }
   }
 
-  async function getOneUser(userId) {
+  async function updateProfileInfo(editedInfo) {
     try {
-      const res = await axios.get(`${API}getUser/${userId}`);
+      const tokens = JSON.parse(localStorage.getItem("tokens"));
+      if (!tokens || !tokens.access_token) {
+        throw new Error("No access token found");
+      }
+      const Authorization = `Bearer ${tokens.access_token}`;
+      const config = {
+        headers: {
+          Authorization,
+        },
+      };
+      const res = await axios.patch(
+        `${API}user/edit/profile`,
+        editedInfo,
+        config
+      );
+      console.log(res.data);
+      alert("Profile update successful");
+    } catch (err) {
+      console.error("Error updating profile:", err);
+    }
+  }
+
+  async function updateProfilePicture(editedInfo) {
+    try {
+      const tokens = JSON.parse(localStorage.getItem("tokens"));
+      if (!tokens || !tokens.access_token) {
+        throw new Error("No access token found");
+      }
+      const Authorization = `Bearer ${tokens.access_token}`;
+      const config = {
+        headers: {
+          Authorization,
+        },
+      };
+      const res = await axios.patch(
+        `${API}user/change/pfp`,
+        editedInfo,
+        config
+      );
+      console.log(res.data);
+      alert("Profile update successful");
+    } catch (err) {
+      console.error("Error updating profile:", err);
+    }
+  }
+
+  // async function updateProfileInfo(editedInfo) {
+  //   try {
+  //     const tokens = JSON.parse(localStorage.getItem("tokens"));
+  //     const Authorization = `Bearer ${tokens.access_token}`;
+  //     const config = {
+  //       headers: {
+  //         Authorization,
+  //       },
+  //     };
+  //     const res = await axios.patch(
+  //       `${API}user/edit/profile`,
+  //       editedInfo,
+  //       config
+  //     );
+  //     console.log(res);
+  //     console.log("success");
+  //   } catch (err) {
+  //     console.error("Error fetching users:", err);
+  //   }
+  // }
+
+  async function getOneUser() {
+    try {
+      const tokens = JSON.parse(localStorage.getItem("tokens"));
+      const Authorization = `Bearer ${tokens.access_token}`;
+      const config = {
+        headers: {
+          Authorization,
+        },
+      };
+      const res = await axios(`${API}user/get/profile`, config);
       dispatch({
         type: "GET_ONE_USER",
         payload: res.data,
       });
     } catch (err) {
-      console.error("Error fetching user:", err);
+      console.log(err);
     }
   }
 
   function handleLogout() {
-    localStorage.removeItem("idToken");
+    localStorage.removeItem("tokens");
     localStorage.removeItem("email");
-    localStorage.removeItem("username");
-    setCurrentUser(null);
+    setCurrentUser(false);
     navigate("/");
-    window.location.reload();
+  }
+
+  async function handleConfirm(formData) {
+    try {
+      const res = await axios.post(`${API}auth/confirmEmail`, formData);
+      console.log(res);
+      navigate("/");
+    } catch (err) {
+      console.log(err);
+      setError(err);
+    }
+  }
+
+  async function sendCodeAgain(formData) {
+    try {
+      const res = await axios.patch(`${API}auth/sendCodeAgain`, formData);
+      navigate("/");
+    } catch (err) {
+      console.log(err);
+      setError(err);
+    }
   }
 
   return (
@@ -108,6 +193,11 @@ const AuthContextProvider = ({ children }) => {
         handleLogout,
         getAllUsers,
         getOneUser,
+        handleConfirm,
+        sendCodeAgain,
+        updateProfileInfo,
+        updateProfilePicture,
+
         users: state.users,
         oneUser: state.oneUser,
         setError,

@@ -1,70 +1,101 @@
-// ProjectDetails.jsx
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import "./projectDetailed.scss";
 import ArrowBack from "@mui/icons-material/ArrowBack";
 import { LinearProgress } from "@mui/material";
 import { Avatar } from "@mui/material";
+import { useTranslation } from "react-i18next";
+import { ideasContext } from "../../contexts/ideasContext";
+import { useParams, useNavigate } from "react-router-dom";
 
 const developers = [
   {
-    name: "John Doe",
-    role: "Frontend Developer",
+    name: "Aliia Malaeva",
+    id: 1,
     avatar:
-      "https://demos.creative-tim.com/material-dashboard-react/static/media/home-decor-1.05e218fd495ccc65c99d.jpg", // URL to the profile picture
+      "https://www.wfla.com/wp-content/uploads/sites/71/2023/05/GettyImages-1389862392.jpg?w=2560&h=1440&crop=1", // URL to the profile picture
   },
   {
-    name: "Jane Smith",
-    role: "Backend Developer",
-    avatar:
-      "https://demos.creative-tim.com/material-dashboard-react/static/media/home-decor-1.05e218fd495ccc65c99d.jpg", // URL to the profile picture
+    name: "Nurmuhammed Ernestov",
+    id: 2,
+    avatar: "https://i.sstatic.net/l60Hf.png", // URL to the profile picture
   },
-  // Add more developers as needed
+  {
+    name: "Sardar Kasmaliev",
+    id: 3,
+    avatar: "https://i.sstatic.net/l60Hf.png", // URL to the profile picture
+  },
+  {
+    name: "Abiy Kasmaliev",
+    id: 4,
+    avatar: "https://i.sstatic.net/l60Hf.png", // URL to the profile picture
+  },
 ];
 
 const ProjectDetails = () => {
-  return (
-    <div className="project-details">
-      <div className="back-button">
-        <ArrowBack /> Back to Projects
-      </div>
-      <div className="progress-bar">
-        <LinearProgress variant="determinate" value={50} />
-      </div>
+  const { t, i18n } = useTranslation();
+  const { getOneIdea, oneIdea, applyToTeam } = useContext(ideasContext);
+  const navigate = useNavigate();
 
-      <div className="project-info">
-        <h2>Project Title</h2>
-        <img
-          src="https://demos.creative-tim.com/material-dashboard-react/static/media/home-decor-1.05e218fd495ccc65c99d.jpg"
-          alt="Project Image"
-          className="project-image"
-        />
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod
-          ipsum non ornare sollicitudin. Integer id eleifend nisi. Lorem ipsum
-          dolor sit amet consectetur, adipisicing elit. Nihil repudiandae magnam
-          nobis culpa placeat laborum sequi quidem vitae, saepe nam sit
-          blanditiis inventore laudantium in est. Assumenda sed molestiae dolor!
-        </p>
-        {/* Add more detailed information here */}
-      </div>
-      <div className="developers-block">
-        <h3>Developers</h3>
-        <div className="developer-list">
-          {developers.map((developer, index) => (
-            <div key={index} className="developer">
-              <Avatar
-                alt={developer.name}
-                src={developer.avatar}
-                className="avatar"
-              />
-              <div className="developer-info">
-                <h4>{developer.name}</h4>
-                <p>{developer.role}</p>
+  const { id } = useParams();
+
+  function apply() {
+    applyToTeam(id);
+  }
+
+  useEffect(() => {
+    getOneIdea(id);
+  }, []);
+
+  return (
+    <div>
+      {oneIdea ? (
+        <div className="project-details">
+          <a className="back-button" href="javascript:history.go(-1)">
+            <ArrowBack /> {t("details.back_arrow")}
+          </a>
+          <p className="detailed_title">{oneIdea.name}</p>
+          <div className="project-info">
+            <img
+              src={oneIdea.imageUrl}
+              height="256"
+              alt="Project Image"
+              className="project-image"
+            />
+            <p>{oneIdea.description}</p>
+          </div>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <div className="developers-block">
+              <h3>{t("details.developers")}</h3>
+              <div className="developer-list">
+                {developers.map((developer, index) => (
+                  <div key={index} className="developer">
+                    <Avatar
+                      alt={developer.name}
+                      src={developer.avatar}
+                      className="avatar"
+                    />
+                    <div className="developer-info">
+                      <p>{developer.name}</p>
+                      {/* <p>{developer.role}</p> */}
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
-          ))}
+            <div className="progress-bar">
+              <p>Progress:</p>
+              <LinearProgress variant="determinate" value={50} />
+            </div>
+          </div>
+          {/* <div className="progress-bar">
+            <p>Progress:</p>
+            <LinearProgress variant="determinate" value={50} />
+          </div> */}
+          <button onClick={apply}>Join</button>
         </div>
-      </div>
+      ) : (
+        <span></span>
+      )}
     </div>
   );
 };
