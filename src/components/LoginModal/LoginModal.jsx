@@ -7,7 +7,7 @@ import { ArrowBack } from "@mui/icons-material";
 
 const LoginModal = ({ closeModal }) => {
   const [activeModal, setActiveModal] = useState("login");
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { handleLogin, setError } = useContext(authContext);
@@ -41,9 +41,9 @@ const LoginModal = ({ closeModal }) => {
     setPassword("");
   }
 
-  // useEffect(() => {
-  //   setError(false);
-  // }, []);
+  useEffect(() => {
+    setError(false);
+  }, []);
 
   const handleLoginClick = (e) => {
     e.stopPropagation();

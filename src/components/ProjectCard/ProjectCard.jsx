@@ -7,7 +7,7 @@ const ProjectCard = ({ item }) => {
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
 
-  console.log(item);
+  // console.log(item);
 
   const getTrimmedText = () => {
     if (item.description.length > 100) {

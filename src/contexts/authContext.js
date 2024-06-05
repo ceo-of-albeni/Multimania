@@ -91,7 +91,7 @@ const AuthContextProvider = ({ children }) => {
     }
   }
 
-  async function updateProfilePicture(editedInfo) {
+  async function updateProfilePicture(newImage) {
     try {
       const tokens = JSON.parse(localStorage.getItem("tokens"));
       if (!tokens || !tokens.access_token) {
@@ -103,15 +103,11 @@ const AuthContextProvider = ({ children }) => {
           Authorization,
         },
       };
-      const res = await axios.patch(
-        `${API}user/change/pfp`,
-        editedInfo,
-        config
-      );
+      const res = await axios.patch(`${API}user/change/pfp`, newImage, config);
       console.log(res.data);
-      alert("Profile update successful");
+      alert("Profile picture update successful");
     } catch (err) {
-      console.error("Error updating profile:", err);
+      console.error("Error updating profile picture:", err);
     }
   }
 

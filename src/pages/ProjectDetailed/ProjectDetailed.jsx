@@ -32,20 +32,19 @@ const developers = [
 ];
 
 const ProjectDetails = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const { getOneIdea, oneIdea, applyToTeam } = useContext(ideasContext);
   const navigate = useNavigate();
 
   const { id } = useParams();
 
-  function apply() {
-    applyToTeam(id);
-  }
-
   useEffect(() => {
     getOneIdea(id);
   }, []);
 
+  function apply() {
+    applyToTeam(id);
+  }
   return (
     <div>
       {oneIdea ? (
@@ -91,7 +90,7 @@ const ProjectDetails = () => {
             <p>Progress:</p>
             <LinearProgress variant="determinate" value={50} />
           </div> */}
-          <button onClick={apply}>Join</button>
+          <button onClick={() => applyToTeam(id)}>Join</button>
         </div>
       ) : (
         <span></span>

@@ -1,7 +1,5 @@
 import React, { useReducer } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { useLocation } from "react-router-dom";
 
 export const ideasContext = React.createContext();
 
@@ -29,9 +27,6 @@ const IdeaContextProvider = ({ children }) => {
 
   const API = "http://localhost:3001/api";
 
-  const location = useLocation();
-  const navigate = useNavigate();
-
   async function getAllMyIdeas() {
     try {
       const tokens = JSON.parse(localStorage.getItem("tokens"));
@@ -53,7 +48,6 @@ const IdeaContextProvider = ({ children }) => {
 
   async function getAllIdeas() {
     try {
-      // const tokens = JSON.parse(localStorage.getItem("tokens"));
       const res = await axios(`${API}/ideas`);
       dispatch({
         type: "GET_IDEAS",

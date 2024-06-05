@@ -1,12 +1,9 @@
 import React, { useState, useContext, useEffect } from "react";
-import ProfilePicture from "../../img/profile.png";
 import "./profile.scss";
 import { useTranslation } from "react-i18next";
 import ProjectCard from "../../components/ProjectCard/ProjectCard";
 import { authContext } from "../../contexts/authContext";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { ideasContext } from "../../contexts/ideasContext";
 
@@ -15,7 +12,6 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  // width: "350px !important",
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
@@ -23,7 +19,7 @@ const style = {
 };
 
 const ProfilePage = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const { getOneUser, oneUser, updateProfileInfo, updateProfilePicture } =
     useContext(authContext);
   const { getAllMyIdeas, my_ideas } = useContext(ideasContext);
@@ -58,16 +54,14 @@ const ProfilePage = () => {
   }, [oneUser]);
 
   const handlePhotoChange = (event) => {
-    const file = event.target.files[0];
-    setNewImage(file);
-    console.log(file);
+    const changedPic = event.target.files[0];
+    setNewImage(changedPic);
   };
 
   function uploadPhoto() {
-    let image = {
-      newIamge,
-    };
-    updateProfilePicture(image);
+    const newPicture = new FormData();
+    newPicture.append("image", newIamge);
+    updateProfilePicture(newPicture);
   }
 
   function saveChanges() {
@@ -130,15 +124,14 @@ const ProfilePage = () => {
   };
 
   const handleFileChange = (event) => {
-    console.log("nyw");
     const file = event.target.files[0];
     setImage(file);
   };
 
   let color;
-  if (oneUser.colorTheme == "light") {
+  if (oneUser.colorTheme === "light") {
     color = "#f7f5f0";
-  } else if (oneUser.colorTheme == "dark") {
+  } else if (oneUser.colorTheme === "dark") {
     color = "dimgray";
   } else {
     color = oneUser.colorTheme;
@@ -305,11 +298,7 @@ const ProfilePage = () => {
       <div className="userprofilepage" style={{ backgroundColor: `${color}` }}>
         <div className="profile_img-ps">
           <div className="profile_img-container">
-            <img
-              src="https://www.wfla.com/wp-content/uploads/sites/71/2023/05/GettyImages-1389862392.jpg?w=2560&h=1440&crop=1"
-              width="350"
-              alt="Profile"
-            />
+            <img src={oneUser?.pfp} width="350" alt="Profile" />
             <button className="edit-button" onClick={handleOpen1}>
               {t("userprofilepage.edit_btn")}
             </button>
