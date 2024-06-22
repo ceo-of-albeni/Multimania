@@ -7,6 +7,7 @@ const INIT_STATE = {
   ideas: [],
   oneIdea: [],
   my_ideas: [],
+  requests: [],
 };
 
 function reducer(state = INIT_STATE, action) {
@@ -17,6 +18,8 @@ function reducer(state = INIT_STATE, action) {
       return { ...state, my_ideas: action.payload };
     case "GET_ONE_IDEA":
       return { ...state, oneIdea: action.payload };
+    case "GET_REQUESTS":
+      return { ...state, requests: action.payload };
     default:
       return state;
   }
@@ -68,11 +71,45 @@ const IdeaContextProvider = ({ children }) => {
           Authorization,
         },
       };
-      const res = await axios.patch(`${API}/ideas/apply/to/team/${id}`, config);
+      const res = await axios.patch(
+        `${API}/ideas/apply/to/team/${id}`,
+        id,
+        config
+      );
       console.log(res.data);
       alert("Applied successful");
     } catch (err) {
       console.error("Error applying:", err);
+    }
+  }
+
+  async function requestsToJoin(teamId) {
+    try {
+      const tokens = JSON.parse(localStorage.getItem("tokens"));
+      if (!tokens || !tokens.access_token) {
+        throw new Error("No tokens found in local storage");
+      }
+      console.log(tokens);
+
+      const Authorization = `Bearer ${tokens.access_token}`;
+      const config = {
+        headers: {
+          Authorization,
+        },
+      };
+
+      const res = await axios.get(
+        `${API}/ideas/get/requests/to/${teamId}`,
+        config
+      );
+
+      dispatch({
+        type: "GET_REQUESTS",
+        payload: res.data,
+      });
+      console.log("cool");
+    } catch (err) {
+      console.log(err);
     }
   }
 
@@ -88,17 +125,66 @@ const IdeaContextProvider = ({ children }) => {
     }
   }
 
+  async function declineRequest(userId, teamId) {
+    try {
+      const tokens = JSON.parse(localStorage.getItem("tokens"));
+      console.log(tokens);
+      const Authorization = `Bearer ${tokens.access_token}`;
+      const config = {
+        headers: {
+          Authorization,
+        },
+      };
+      const res = await axios.patch(
+        `${API}/ideas/decline/request/to/team/${userId}/${teamId}`,
+        userId,
+        teamId,
+        config
+      );
+      console.log(res.data);
+      alert("Declined");
+    } catch (err) {
+      console.error("Error applying:", err);
+    }
+  }
+
+  async function approveRequest(allId) {
+    try {
+      const tokens = JSON.parse(localStorage.getItem("tokens"));
+      console.log(tokens);
+      const Authorization = `Bearer ${tokens.access_token}`;
+      const config = {
+        headers: {
+          Authorization,
+        },
+      };
+      const res = await axios.patch(
+        `${API}/ideas/approve/request/to/team/${allId.userId}/${allId.teamId}`,
+        allId,
+        config
+      );
+      console.log(res.data);
+      alert("Approve");
+    } catch (err) {
+      console.error("Error applying:", err);
+    }
+  }
+
   return (
     <ideasContext.Provider
       value={{
         ideas: state.ideas,
         oneIdea: state.oneIdea,
         my_ideas: state.my_ideas,
+        requests: state.requests,
 
         getAllMyIdeas,
         getOneIdea,
         getAllIdeas,
         applyToTeam,
+        requestsToJoin,
+        declineRequest,
+        approveRequest,
       }}>
       {children}
     </ideasContext.Provider>

@@ -1,13 +1,7 @@
 .userprofilepage {
   display: flex;
   flex-direction: column;
-  // margin: 50px;
-  // background-color: #f9f9f9;
-  // border-radius: 10px;
   padding: 80px auto;
-  // box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  // max-width: 900px;
-  // margin: 50px auto;
 }
 
 .supermaindiv {
@@ -94,26 +88,25 @@
       font-size: 1.3em;
     }
   }
+}
+.upload-button {
+  width: 175px;
+  height: 38px;
+  padding: 10px, 39px, 10px;
+  border-radius: 5px;
+  border: none;
+  background: black;
+  font-size: 16px;
+  font-weight: 310;
+  line-height: 19px;
+  color: white;
+  transition: 0.2s;
 
-  .upload-button {
-    width: 175px;
-    height: 38px;
-    padding: 10px, 39px, 10px;
-    border-radius: 5px;
-    border: none;
-    background: black;
-    font-size: 16px;
-    font-weight: 310;
-    line-height: 19px;
-    color: white;
-    transition: 0.2s;
-
-    &:hover {
-      background-color: white;
-      color: #4caf50;
-      border: 1px solid black;
-      box-shadow: 0px 0px 17px 0px;
-    }
+  &:hover {
+    background-color: white;
+    color: #4caf50;
+    border: 1px solid black;
+    box-shadow: 0px 0px 17px 0px;
   }
 }
 
@@ -133,14 +126,8 @@
   justify-content: center;
   width: 420px;
   height: 250px;
-
-  .ok_btn {
-    width: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
 }
+
 .article_form {
   display: flex;
   gap: 20px;
@@ -165,8 +152,10 @@
 .article_form-inputs {
   display: flex;
   flex-direction: column;
+  // justify-content: space-between;
   align-items: center;
-  padding: 0px 50px;
+
+  // padding: 0px 50px;
 
   .input_p {
     color: rgba(0, 0, 0, 0.6);
@@ -237,5 +226,58 @@ input[type="file"] {
   justify-content: center;
   div {
     padding-bottom: 50px;
+  }
+}
+
+.theme_btns {
+  display: flex;
+  justify-content: space-between;
+
+  button {
+    border-radius: 25px;
+    width: 40px;
+    border: 1px solid rgb(192, 192, 192);
+  }
+
+  #pink {
+    background-color: pink;
+  }
+
+  #pink:hover {
+    border: 1px solid white;
+    box-shadow: 0px 0px 17px 0px;
+    color: pink;
+  }
+
+  #green {
+    background-color: #4caf50;
+  }
+
+  #green:hover {
+    background-color: #4caf50;
+    border: 1px solid white;
+    box-shadow: 0px 0px 17px 0px;
+  }
+
+  #light {
+    background-color: #f7f5f0;
+  }
+
+  #light:hover {
+    background-color: #f7f5f0;
+    border: 1px solid white;
+    box-shadow: 0px 0px 17px 0px;
+    color: #f6f1e4;
+  }
+
+  #dark {
+    background-color: dimgray;
+  }
+
+  #dark:hover {
+    background-color: rgb(135, 135, 135);
+    border: 1px solid white;
+    box-shadow: 0px 0px 17px 0px;
+    color: gray;
   }
 }

@@ -7,30 +7,6 @@ import { useTranslation } from "react-i18next";
 import { ideasContext } from "../../contexts/ideasContext";
 import { useParams, useNavigate } from "react-router-dom";
 
-const developers = [
-  {
-    name: "Aliia Malaeva",
-    id: 1,
-    avatar:
-      "https://www.wfla.com/wp-content/uploads/sites/71/2023/05/GettyImages-1389862392.jpg?w=2560&h=1440&crop=1", // URL to the profile picture
-  },
-  {
-    name: "Nurmuhammed Ernestov",
-    id: 2,
-    avatar: "https://i.sstatic.net/l60Hf.png", // URL to the profile picture
-  },
-  {
-    name: "Sardar Kasmaliev",
-    id: 3,
-    avatar: "https://i.sstatic.net/l60Hf.png", // URL to the profile picture
-  },
-  {
-    name: "Abiy Kasmaliev",
-    id: 4,
-    avatar: "https://i.sstatic.net/l60Hf.png", // URL to the profile picture
-  },
-];
-
 const ProjectDetails = () => {
   const { t } = useTranslation();
   const { getOneIdea, oneIdea, applyToTeam } = useContext(ideasContext);
@@ -40,11 +16,34 @@ const ProjectDetails = () => {
 
   useEffect(() => {
     getOneIdea(id);
+    console.log(oneIdea);
   }, []);
 
-  function apply() {
-    applyToTeam(id);
+  let procenets;
+  if (
+    oneIdea.secondLink === null &&
+    oneIdea.firstLink === null &&
+    oneIdea.thirdfLink === null
+  ) {
+    procenets = 0;
+  } else if (oneIdea.secondLink === null && oneIdea.firstLink !== null) {
+    procenets = 35;
+  } else if (
+    oneIdea.secondLink !== null &&
+    oneIdea.firstLink !== null &&
+    oneIdea.thirdfLink === null
+  ) {
+    procenets = 75;
+  } else if (
+    oneIdea.secondLink !== null &&
+    oneIdea.firstLink !== null &&
+    oneIdea.thirdfLink !== null
+  ) {
+    procenets = 100;
+  } else {
+    procenets = 0;
   }
+
   return (
     <div>
       {oneIdea ? (
@@ -66,16 +65,35 @@ const ProjectDetails = () => {
             <div className="developers-block">
               <h3>{t("details.developers")}</h3>
               <div className="developer-list">
-                {developers.map((developer, index) => (
-                  <div key={index} className="developer">
+                <div
+                  className="developer"
+                  onClick={() => navigate(`/user/${oneIdea?.author?.id}`)}>
+                  <Avatar
+                    // alt={developer.name}
+                    src={oneIdea?.author?.pfp}
+                    className="avatar"
+                  />
+                  <div className="developer-info">
+                    <p>
+                      {oneIdea?.author?.firstName} {oneIdea?.author?.lastName}{" "}
+                      (author)
+                    </p>
+                  </div>
+                </div>
+                {oneIdea.members?.map((developer, index) => (
+                  <div
+                    key={index}
+                    className="developer"
+                    onClick={() => navigate(`/user/${developer?.id}`)}>
                     <Avatar
-                      alt={developer.name}
-                      src={developer.avatar}
+                      alt={developer.firstName}
+                      src={developer.pfp}
                       className="avatar"
                     />
                     <div className="developer-info">
-                      <p>{developer.name}</p>
-                      {/* <p>{developer.role}</p> */}
+                      <p>
+                        {developer.firstName} {developer.lastName}
+                      </p>
                     </div>
                   </div>
                 ))}
@@ -83,14 +101,15 @@ const ProjectDetails = () => {
             </div>
             <div className="progress-bar">
               <p>Progress:</p>
-              <LinearProgress variant="determinate" value={50} />
+              <LinearProgress variant="determinate" value={procenets} />
             </div>
           </div>
-          {/* <div className="progress-bar">
-            <p>Progress:</p>
-            <LinearProgress variant="determinate" value={50} />
-          </div> */}
-          <button onClick={() => applyToTeam(id)}>Join</button>
+
+          {localStorage.getItem("email") === null ? (
+            <span></span>
+          ) : (
+            <button onClick={() => applyToTeam(id)}>Join</button>
+          )}
         </div>
       ) : (
         <span></span>

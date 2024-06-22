@@ -35,7 +35,7 @@ const LoginModal = ({ closeModal }) => {
     };
 
     handleLogin(newObj, email, closeModal);
-    console.log(newObj);
+    // console.log(newObj);
 
     setEmail("");
     setPassword("");

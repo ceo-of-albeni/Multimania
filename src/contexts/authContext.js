@@ -7,6 +7,7 @@ export const authContext = React.createContext();
 const INIT_STATE = {
   users: [],
   oneUser: [],
+  otherUser: [],
 };
 
 function reducer(state = INIT_STATE, action) {
@@ -15,6 +16,8 @@ function reducer(state = INIT_STATE, action) {
       return { ...state, users: action.payload };
     case "GET_ONE_USER":
       return { ...state, oneUser: action.payload };
+    case "GET_OTHER_USER":
+      return { ...state, otherUser: action.payload };
     default:
       return state;
   }
@@ -67,6 +70,27 @@ const AuthContextProvider = ({ children }) => {
     }
   }
 
+  async function updateProfilePicture(newImage) {
+    try {
+      const tokens = JSON.parse(localStorage.getItem("tokens"));
+      if (!tokens || !tokens.access_token) {
+        throw new Error("No access token found");
+      }
+      const Authorization = `Bearer ${tokens.access_token}`;
+      const config = {
+        headers: {
+          Authorization,
+        },
+      };
+      const res = await axios.patch(`${API}user/change/pfp`, newImage, config);
+      console.log(res.data);
+      alert("Profile picture update successful");
+      window.location.reload();
+    } catch (err) {
+      console.error("Error updating profile picture:", err);
+    }
+  }
+
   async function updateProfileInfo(editedInfo) {
     try {
       const tokens = JSON.parse(localStorage.getItem("tokens"));
@@ -85,13 +109,13 @@ const AuthContextProvider = ({ children }) => {
         config
       );
       console.log(res.data);
-      alert("Profile update successful");
+      window.location.reload();
     } catch (err) {
       console.error("Error updating profile:", err);
     }
   }
 
-  async function updateProfilePicture(newImage) {
+  async function updateProfileTheme(theme) {
     try {
       const tokens = JSON.parse(localStorage.getItem("tokens"));
       if (!tokens || !tokens.access_token) {
@@ -103,34 +127,17 @@ const AuthContextProvider = ({ children }) => {
           Authorization,
         },
       };
-      const res = await axios.patch(`${API}user/change/pfp`, newImage, config);
+      const res = await axios.patch(
+        `${API}user/edit/profile/${theme}`,
+        theme,
+        config
+      );
       console.log(res.data);
-      alert("Profile picture update successful");
+      window.location.reload();
     } catch (err) {
-      console.error("Error updating profile picture:", err);
+      console.error("Error updating profile theme:", err);
     }
   }
-
-  // async function updateProfileInfo(editedInfo) {
-  //   try {
-  //     const tokens = JSON.parse(localStorage.getItem("tokens"));
-  //     const Authorization = `Bearer ${tokens.access_token}`;
-  //     const config = {
-  //       headers: {
-  //         Authorization,
-  //       },
-  //     };
-  //     const res = await axios.patch(
-  //       `${API}user/edit/profile`,
-  //       editedInfo,
-  //       config
-  //     );
-  //     console.log(res);
-  //     console.log("success");
-  //   } catch (err) {
-  //     console.error("Error fetching users:", err);
-  //   }
-  // }
 
   async function getOneUser() {
     try {
@@ -144,6 +151,18 @@ const AuthContextProvider = ({ children }) => {
       const res = await axios(`${API}user/get/profile`, config);
       dispatch({
         type: "GET_ONE_USER",
+        payload: res.data,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async function getOneUserById(id) {
+    try {
+      const res = await axios(`${API}user/${id}`);
+      dispatch({
+        type: "GET_OTHER_USER",
         payload: res.data,
       });
     } catch (err) {
@@ -193,9 +212,12 @@ const AuthContextProvider = ({ children }) => {
         sendCodeAgain,
         updateProfileInfo,
         updateProfilePicture,
+        updateProfileTheme,
+        getOneUserById,
 
         users: state.users,
         oneUser: state.oneUser,
+        otherUser: state.otherUser,
         setError,
       }}>
       {children}

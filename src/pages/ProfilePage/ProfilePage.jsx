@@ -6,6 +6,7 @@ import { authContext } from "../../contexts/authContext";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { ideasContext } from "../../contexts/ideasContext";
+import { useNavigate } from "react-router-dom";
 
 const style = {
   position: "absolute",
@@ -16,22 +17,55 @@ const style = {
   border: "2px solid #000",
   boxShadow: 24,
   p: 4,
+  padding: "30px 130px",
 };
 
 const ProfilePage = () => {
   const { t } = useTranslation();
-  const { getOneUser, oneUser, updateProfileInfo, updateProfilePicture } =
-    useContext(authContext);
-  const { getAllMyIdeas, my_ideas } = useContext(ideasContext);
+  const {
+    getOneUser,
+    oneUser,
+    updateProfileInfo,
+    updateProfileTheme,
+    updateProfilePicture,
+  } = useContext(authContext);
+  const {
+    getAllMyIdeas,
+    my_ideas,
+    requestsToJoin,
+    requests,
+    approveRequest,
+    declineRequest,
+  } = useContext(ideasContext);
   const [open, setOpen] = useState(false);
   const [open1, setOpen1] = useState(false);
+  const [open2, setOpen2] = useState(false);
   const [open3, setOpen3] = useState(false);
+  const [open4, setOpen4] = useState(false);
+  const [open5, setOpen5] = useState(false);
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const handleOpen1 = () => setOpen1(true);
   const handleClose1 = () => setOpen1(false);
+  const handleClose2 = () => setOpen2(false);
   const handleClose3 = () => setOpen3(false);
   const handleOpen3 = () => setOpen3(true);
+  const handleOpen4 = () => setOpen4(true);
+  const handleClose4 = () => setOpen4(false);
+  const handleOpen5 = () => setOpen5(true);
+  const handleClose5 = () => setOpen5(false);
+
+  const [teamId, setTeamId] = useState("");
+  const [userId, setUserId] = useState("");
+  const navigate = useNavigate();
+
+  function handleOpen2(id) {
+    requestsToJoin(id);
+    setOpen2(true);
+    setTeamId(id);
+    console.log(id);
+  }
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -62,6 +96,30 @@ const ProfilePage = () => {
     const newPicture = new FormData();
     newPicture.append("image", newIamge);
     updateProfilePicture(newPicture);
+  }
+
+  let color;
+  if (oneUser.colorTheme === "LIGHT") {
+    color = "#f7f5f0";
+  } else if (oneUser.colorTheme === "DARK") {
+    color = "dimgray";
+  } else if (oneUser.colorTheme === "GREEN") {
+    color = "#4caf50";
+  } else {
+    color = oneUser.colorTheme;
+  }
+
+  function themePink() {
+    updateProfileTheme("pink");
+  }
+  function themeGreen() {
+    updateProfileTheme("green");
+  }
+  function themeLight() {
+    updateProfileTheme("light");
+  }
+  function themeDark() {
+    updateProfileTheme("dark");
   }
 
   function saveChanges() {
@@ -128,13 +186,42 @@ const ProfilePage = () => {
     setImage(file);
   };
 
-  let color;
-  if (oneUser.colorTheme === "light") {
-    color = "#f7f5f0";
-  } else if (oneUser.colorTheme === "dark") {
-    color = "dimgray";
-  } else {
-    color = oneUser.colorTheme;
+  function approve2() {
+    approve(userId);
+    window.location.reload();
+  }
+
+  async function approve(id) {
+    await setUserId(id);
+
+    let obj = {
+      userId: userId,
+      teamId: teamId,
+    };
+
+    console.log(obj);
+
+    approveRequest(obj);
+    handleOpen4();
+  }
+
+  function decline2() {
+    decline(userId);
+    window.location.reload();
+  }
+
+  async function decline(id) {
+    await setUserId(id);
+
+    let obj = {
+      userId: userId,
+      teamId: teamId,
+    };
+
+    console.log(obj);
+
+    declineRequest(obj);
+    handleOpen5();
   }
 
   useEffect(() => {
@@ -192,7 +279,9 @@ const ProfilePage = () => {
             </div>
 
             <br />
-            <button onClick={handleUpload}>{t("ideamodal.upload")}</button>
+            <button className="upload-button" onClick={handleUpload}>
+              {t("ideamodal.upload")}
+            </button>
           </div>
         </Box>
       </Modal>
@@ -242,16 +331,20 @@ const ProfilePage = () => {
                   value={aboutMe}
                   onChange={(e) => setAboutMe(e.target.value)}
                 />
+                <div className="theme_btns">
+                  <button onClick={themeDark} id="dark"></button>
+                  <button onClick={themeLight} id="light"></button>
+                  <button onClick={themePink} id="pink"></button>
+                  <button onClick={themeGreen} id="green"></button>
+                </div>
               </div>
 
               <br />
-              <button onClick={saveChanges}>{t("edit_profile.edit")}</button>
             </div>
+            <button onClick={saveChanges}>{t("edit_profile.edit")}</button>
             <div>
-              <button
-                onClick={handleOpen3}
-                style={{ marginTop: "15px", marginLeft: "50px" }}>
-                Edit Profile Picture
+              <button onClick={handleOpen3} style={{ marginTop: "15px" }}>
+                {t("edit_profile.savechanges")}
               </button>
             </div>
           </div>
@@ -295,6 +388,90 @@ const ProfilePage = () => {
         </Box>
       </Modal>
 
+      {/* requests */}
+      <Modal
+        open={open2}
+        onClose={handleClose2}
+        className="supermaindiv"
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description">
+        <Box className="article_form" id="article_div" sx={style}>
+          <div>
+            <h4>{t("edit_profile.requests")}</h4>
+            <div className="article_form-inputs">
+              <div className="short_inp">
+                {requests ? (
+                  requests.map((item) => (
+                    <div key={item.id}>
+                      <p
+                        style={{
+                          fontSize: "20px",
+                          marginTop: "30px",
+                          fontWeight: "bold",
+                          textDecoration: "underline",
+                        }}
+                        onClick={() => navigate(`/user/${item?.id}`)}
+                        // onClick={() => navigateNId(item.id)}
+                        className="input_p">
+                        {item?.firstName} {item?.lastName}
+                      </p>
+                      <button onClick={() => approve(item.id)}>
+                        {t("edit_profile.approve")}
+                      </button>
+                      <button onClick={() => decline(item.id)}>
+                        {t("edit_profile.decline")}
+                      </button>
+                    </div>
+                  ))
+                ) : (
+                  <h3>Loading...</h3>
+                )}
+              </div>
+              <br />
+            </div>
+          </div>
+        </Box>
+      </Modal>
+
+      {/* sure? */}
+      <Modal
+        open={open4}
+        onClose={handleClose4}
+        className="supermaindiv"
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description">
+        <Box className="article_form" id="article_div" sx={style}>
+          <div>
+            <h4>{t("edit_profile.sure")}</h4>
+            <div className="article_form-inputs">
+              <div className="short_inp">
+                <button onClick={approve2}>{t("edit_profile.approve")}</button>
+              </div>
+              <br />
+            </div>
+          </div>
+        </Box>
+      </Modal>
+
+      <Modal
+        open={open5}
+        onClose={handleClose5}
+        className="supermaindiv"
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description">
+        <Box className="article_form" id="article_div" sx={style}>
+          <div>
+            <h4>{t("edit_profile.sure")}</h4>
+            <div className="article_form-inputs">
+              <div className="short_inp">
+                <button onClick={decline2}>{t("edit_profile.decline")}</button>
+              </div>
+              <br />
+            </div>
+          </div>
+        </Box>
+      </Modal>
+
       <div className="userprofilepage" style={{ backgroundColor: `${color}` }}>
         <div className="profile_img-ps">
           <div className="profile_img-container">
@@ -323,7 +500,11 @@ const ProfilePage = () => {
 
         <div className="list_courses-div">
           {my_ideas ? (
-            my_ideas.map((item) => <ProjectCard key={item.id} item={item} />)
+            my_ideas.map((item) => (
+              <div key={item.id} onClick={() => handleOpen2(item.id)}>
+                <ProjectCard key={item.id} item={item} />
+              </div>
+            ))
           ) : (
             <h3>Loading...</h3>
           )}

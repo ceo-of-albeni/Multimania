@@ -92,9 +92,14 @@
     "lastName": "Last Name",
     "usefulLink": "Links",
     "picture": "Profile Picture",
-    "edit": "Edit",
+    "edit": "Save changes",
     "title": "Edit",
     "ph": "Click to start typing",
-    "aboutMe": "About yourself"
+    "aboutMe": "About yourself",
+    "savechanges": "Edit profile picture",
+    "requests": "List of requests",
+    "sure": "Are you sure?",
+    "approve": "Approve",
+    "decline": "Decline"
   }
 }

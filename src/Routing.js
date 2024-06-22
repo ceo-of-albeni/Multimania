@@ -6,6 +6,7 @@ import IdeasPage from "./pages/IdeasPage/IdeasPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import ProjectDetailed from "./pages/ProjectDetailed/ProjectDetailed";
 import { ConfirmReg } from "./components/confirmRegistr/confirmRegistr";
+import OtherUsersPage from "./pages/ProfilePage/OtherUsersPage";
 
 const Routing = () => {
   const PUBLIC_ROUTES = [
@@ -38,6 +39,11 @@ const Routing = () => {
       link: "/confirm",
       element: <ConfirmReg />,
       id: 5,
+    },
+    {
+      link: "/user/:id",
+      element: <OtherUsersPage />,
+      id: 6,
     },
   ];
   return (
