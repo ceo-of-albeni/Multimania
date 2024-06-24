@@ -42,29 +42,13 @@ const ProjectCard = ({ item }) => {
           </a>
           <div className="project_div-teammates">
             <div className="project_teammate">
-              <img
-                src="https://demos.creative-tim.com/material-dashboard-react/static/media/team-4.85c82b6e60178804017f.jpg"
-                alt=""
-              />
+              <img src={item.author?.pfp} alt="" />
             </div>
-            <div className="project_teammate">
-              <img
-                src="https://i.pinimg.com/736x/a9/61/0f/a9610f604eac73134941886f82d7b54a.jpg"
-                alt=""
-              />
-            </div>
-            <div className="project_teammate">
-              <img
-                src="https://img.freepik.com/free-photo/front-view-portrait-businessman-with-glasses_23-2148816831.jpg"
-                alt=""
-              />
-            </div>
-            <div className="project_teammate">
-              <img
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXOdZN9FwqzYqEL6SJa7uQNAFQAmepwBR3bg&s"
-                alt=""
-              />
-            </div>
+            {item.members?.map((developer, index) => (
+              <div className="project_teammate">
+                <img src={developer.pfp} alt="" />
+              </div>
+            ))}
           </div>
         </div>
       </div>

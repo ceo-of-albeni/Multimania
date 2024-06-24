@@ -125,7 +125,30 @@ const IdeaContextProvider = ({ children }) => {
     }
   }
 
-  async function declineRequest(userId, teamId) {
+  // async function declineRequest(userId, teamId) {
+  //   try {
+  //     const tokens = JSON.parse(localStorage.getItem("tokens"));
+  //     console.log(tokens);
+  //     const Authorization = `Bearer ${tokens.access_token}`;
+  //     const config = {
+  //       headers: {
+  //         Authorization,
+  //       },
+  //     };
+  //     const res = await axios.patch(
+  //       `${API}/ideas/decline/request/to/team/${userId}/${teamId}`,
+  //       userId,
+  //       teamId,
+  //       config
+  //     );
+  //     console.log(res.data);
+  //     alert("Declined");
+  //   } catch (err) {
+  //     console.error("Error applying:", err);
+  //   }
+  // }
+
+  async function declineRequest(allId) {
     try {
       const tokens = JSON.parse(localStorage.getItem("tokens"));
       console.log(tokens);
@@ -136,15 +159,14 @@ const IdeaContextProvider = ({ children }) => {
         },
       };
       const res = await axios.patch(
-        `${API}/ideas/decline/request/to/team/${userId}/${teamId}`,
-        userId,
-        teamId,
+        `${API}/ideas/decline/request/to/team/${allId.userId}/${allId.teamId}`,
+        allId,
         config
       );
       console.log(res.data);
       alert("Declined");
     } catch (err) {
-      console.error("Error applying:", err);
+      console.error("Error Declined:", err);
     }
   }
 
@@ -170,6 +192,28 @@ const IdeaContextProvider = ({ children }) => {
     }
   }
 
+  async function uploadLink(idAndLink, link) {
+    try {
+      const tokens = JSON.parse(localStorage.getItem("tokens"));
+      console.log(tokens);
+      const Authorization = `Bearer ${tokens.access_token}`;
+      const config = {
+        headers: {
+          Authorization,
+        },
+      };
+      const res = await axios.patch(
+        `${API}/ideas/insert/link/to/progress/${idAndLink.teamId}/${idAndLink.numberOfLink}`,
+        link,
+        config
+      );
+      console.log(res.data);
+      alert("Upload");
+    } catch (err) {
+      console.error("Error uploading:", err);
+    }
+  }
+
   return (
     <ideasContext.Provider
       value={{
@@ -185,6 +229,7 @@ const IdeaContextProvider = ({ children }) => {
         requestsToJoin,
         declineRequest,
         approveRequest,
+        uploadLink,
       }}>
       {children}
     </ideasContext.Provider>
