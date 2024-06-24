@@ -48,7 +48,7 @@ const ProjectDetails = () => {
 
     let newObj = {
       teamId: oneIdea.id,
-      numberOfLink: "secondLink",
+      numberOfLink: "2",
     };
 
     console.log(newObj);
@@ -66,7 +66,7 @@ const ProjectDetails = () => {
 
     let newObj = {
       teamId: oneIdea.id,
-      numberOfLink: "thirdLink",
+      numberOfLink: "3",
     };
 
     uploadLink(newObj, file1);

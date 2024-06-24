@@ -202,9 +202,10 @@ const IdeaContextProvider = ({ children }) => {
           Authorization,
         },
       };
+
       const res = await axios.patch(
         `${API}/ideas/insert/link/to/progress/${idAndLink.teamId}/${idAndLink.numberOfLink}`,
-        link,
+        { link: link },
         config
       );
       console.log(res.data);
